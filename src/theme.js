@@ -9,6 +9,7 @@ export const tokens = {
   teal: "#3FDBC7",
   text: "#E8EAF0",
   textMuted: "#8B93A7",
+  borderLight: "#cbd7e750",
 };
 
 const theme = createTheme({

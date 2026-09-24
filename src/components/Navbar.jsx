@@ -30,10 +30,10 @@ export default function Navbar() {
       <Container maxWidth="lg">
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ py: 1.75 }}>
           <Typography variant="h6" sx={{ letterSpacing: 0.5 }}>
-            Tarun<Box component="span" sx={{ color: tokens.amber }}>.</Box>
+            Personal Porfolio
           </Typography>
 
-          <Stack direction="row" spacing={4} sx={{ display: { xs: "none", md: "flex" } }}>
+          <Stack direction="row" spacing={4} alignItems="center" sx={{ display: { xs: "none", md: "flex" } }}>
             {links.map((l) => (
               <Typography
                 key={l.href}
@@ -54,7 +54,13 @@ export default function Navbar() {
               href="mailto:kjstarun@gmail.com"
               variant="outlined"
               size="small"
-              sx={{ borderColor: tokens.glassBorder, color: tokens.text, "&:hover": { borderColor: tokens.amber } }}
+              sx={{
+                borderColor: tokens.borderLight,
+                // color: tokens.text,
+                lineHeight: 1,
+                py: "8px",
+                "&:hover": { borderColor: tokens.amber },
+              }}
             >
               Say hello
             </Button>
