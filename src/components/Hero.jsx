@@ -36,7 +36,7 @@ export default function Hero() {
                   }}
                 >
                   {profile.name}
-                  <Box component="span" sx={{ color: tokens.amber }}>.</Box>
+                  {/* <Box component="span" sx={{ color: tokens.amber }}>.</Box> */}
                 </Typography>
               </motion.div>
 
