@@ -10,7 +10,7 @@ import Footer from "./components/Footer.jsx";
 
 export default function App() {
   return (
-    <Box sx={{ overflowX: "hidden" }}>
+    <Box sx={{ overflowX: "hidden", pt: "65px" }}>
       <Navbar />
       <Hero />
       <About />

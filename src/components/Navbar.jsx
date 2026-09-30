@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, Container, Stack, Typography, IconButton, Drawer, Button } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -13,20 +13,58 @@ const links = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrollPct, setScrollPct] = useState(0);
+
+  useEffect(() => {
+    let frame = 0;
+    const onScroll = () => {
+      // Coalesce scroll events to one state update per frame. Use scrollY so
+      // the progress responds from the very first pixel of page movement.
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        const root = document.documentElement;
+        const total = Math.max(root.scrollHeight, document.body.scrollHeight) - window.innerHeight;
+        setScrollPct(total > 0 ? Math.min(window.scrollY / total, 1) : 0);
+        frame = 0;
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
 
   return (
     <Box
       component="nav"
       sx={{
-        position: "sticky",
+        position: "fixed",
         top: 0,
-        zIndex: 50,
+        left: 0,
+        width: "100%",
+        zIndex: 1200,
         backdropFilter: "blur(14px)",
         WebkitBackdropFilter: "blur(14px)",
-        background: "rgba(10,14,23,0.7)",
+        background: "rgba(10,14,23,0.75)",
         borderBottom: `1px solid ${tokens.glassBorder}`,
       }}
     >
+      {/* Scroll progress bar */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          height: "3px",
+          width: `${3 + scrollPct * 97}%`,
+          background: `linear-gradient(90deg, ${tokens.amber}, ${tokens.teal})`,
+          boxShadow: `0 0 8px ${tokens.amber}88`,
+          transition: "width 0.05s linear",
+          borderRadius: "0 2px 2px 0",
+        }}
+      />
       <Container maxWidth="lg">
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ py: 1.75 }}>
           <Typography variant="h6" sx={{ letterSpacing: 0.5 }}>
